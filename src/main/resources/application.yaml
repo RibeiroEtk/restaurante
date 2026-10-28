@@ -11,6 +11,16 @@ spring:
     hibernate:
       ddl-auto: update
     show-sql: true
+    open-in-view: false
+
+  mvc:
+    problemdetails:
+      enabled: true
+
+  web:
+    error:
+      include-message: always
+      include-binding-errors: always
 
 server:
   servlet:
