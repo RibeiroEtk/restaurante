@@ -29,3 +29,15 @@ server:
 springdoc:
   swagger-ui:
     use-root-path: true
+
+logging:
+  file:
+    path: ./logs
+
+# Configurações de segurança (lidas pela classe SegurancaProperties)
+# O valor depois dos ":" é o padrão; em produção ele vem de uma variável de ambiente
+seguranca:
+  jwt-secret: ${JWT_SECRET:chave-de-desenvolvimento-do-restaurante-pucpr-2026-troque-em-producao}
+  jwt-expiracao-horas: 2
+  admin-email: ${ADMIN_EMAIL:admin@restaurante.com}
+  admin-senha: ${ADMIN_SENHA:admin123}

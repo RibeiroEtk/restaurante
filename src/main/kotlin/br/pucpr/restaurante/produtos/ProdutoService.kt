@@ -4,6 +4,7 @@ import br.pucpr.restaurante.categorias.Categoria
 import br.pucpr.restaurante.categorias.CategoriaRepository
 import br.pucpr.restaurante.erros.BadRequestException
 import br.pucpr.restaurante.erros.NotFoundException
+import br.pucpr.restaurante.pedidos.ItemPedidoRepository
 import org.slf4j.LoggerFactory
 import org.springframework.data.domain.Sort
 import org.springframework.stereotype.Service
@@ -12,7 +13,8 @@ import org.springframework.transaction.annotation.Transactional
 @Service
 class ProdutoService(
     private val repository: ProdutoRepository,
-    private val categoriaRepository: CategoriaRepository
+    private val categoriaRepository: CategoriaRepository,
+    private val itemPedidoRepository: ItemPedidoRepository
 ) {
     private val log = LoggerFactory.getLogger(ProdutoService::class.java)
 
@@ -91,6 +93,15 @@ class ProdutoService(
     @Transactional
     fun excluir(id: Long) {
         val produto = buscarPorId(id)
+
+        // Não deixa apagar produto que já aparece em algum pedido (o histórico seria perdido)
+        if (itemPedidoRepository.existsByProdutoId(id)) {
+            log.warn("Tentativa de excluir produto que está em pedidos. id={}", id)
+            throw BadRequestException(
+                "Não é possível excluir o produto '${produto.nome}' porque ele faz parte de pedidos"
+            )
+        }
+
         repository.delete(produto)
         log.info("Produto excluído. id={}", id)
     }
