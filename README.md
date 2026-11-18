@@ -10,7 +10,7 @@ Trabalho final da disciplina **Backend: Web Services** — Bacharelado em Sistem
 
 ## 🎥 Vídeo de apresentação
 
-👉 **[Assistir no YouTube](COLE_AQUI_O_LINK_DO_VIDEO)**
+👉 **[Assistir no YouTube](https://youtu.be/wU_c4dRxeW4)**
 
 ## 📌 Sobre o projeto
 
